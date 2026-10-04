@@ -1,0 +1,10 @@
+xserver-xorg
+xinit
+openbox
+zbar-tools
+guvcview
+alsa-utils
+libxext6
+libxrender1
+libxtst6
+libxi6

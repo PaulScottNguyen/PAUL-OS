@@ -1,0 +1,2 @@
+KERNEL=="sd*", ENV{UDISKS_IGNORE}="1"
+KERNEL=="nvme*", ENV{UDISKS_IGNORE}="1"
