@@ -23,6 +23,27 @@ PAUL OS assumes the host hardware is potentially compromised and operates under 
 * **Bitcoin Coordinator:** [Sparrow Wallet](https://sparrowwallet.com/) (v2.5.5)
 * **Webcam/QR Utilities:** `zbar-tools`, `guvcview`
 
+## System Requirements
+
+Because PAUL OS operates strictly as a Live CD and forcefully disables storage mounting, it relies entirely on your system's physical RAM (`tmpfs`) to unpack the operating system, run the Java Virtual Machine for Sparrow Wallet, and buffer webcam video feeds. **No hard drive is required or utilized.**
+
+### Bare Minimum Requirements
+* **Processor:** 64-bit Dual-Core CPU (x86_64 / amd64 architecture)
+* **Memory (RAM):** 4 GB 
+  * *(Note: Booting with less than 4 GB may trigger the Linux Out-Of-Memory (OOM) killer because Sparrow Wallet is a Java application and there is zero swap space).*
+* **Optical Drive:** Standard CD-ROM or DVD-ROM drive
+* **Peripherals:** Keyboard, Mouse, and a standard UVC (USB Video Class) Webcam
+* **Display:** 720p monitor minimum
+
+### Recommended System Requirements
+* **Processor:** 64-bit Quad-Core CPU (x86_64 / amd64 architecture)
+* **Memory (RAM):** 4 GB or higher
+* **Optical Drive:** Standard CD-ROM or DVD-ROM drive
+* **Peripherals:** 
+  * Keyboard & Mouse
+  * **1080p Webcam with Autofocus:** *Highly recommended.* Complex PSBTs (Partially Signed Bitcoin Transactions) generate incredibly dense, high-capacity QR codes. A cheap 480p/720p fixed-focus laptop webcam will struggle to read them, requiring you to slowly pan the screen around. A 1080p autofocus camera will scan them instantly.
+
+
 ## Build Instructions (Reproducible Build)
 
 Do not trust pre-compiled ISOs, including mine. You are encouraged to audit the shell scripts and build the `.iso` yourself on a secure OS.
