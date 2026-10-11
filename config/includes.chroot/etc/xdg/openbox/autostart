@@ -1,0 +1,2 @@
+# Autostart Sparrow Wallet in background
+/opt/sparrow/bin/Sparrow &

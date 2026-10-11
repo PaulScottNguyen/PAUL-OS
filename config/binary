@@ -117,3 +117,5 @@ LB_SWAP_FILE_SIZE="512"
 
 # Enable/disable UEFI secure boot support
 LB_UEFI_SECURE_BOOT="auto"
+
+LB_BOOTAPPEND_LIVE="boot=live components hostname=paul-os username=paul init_on_free=1 slab_nomerge apparmor=1 security=apparmor"

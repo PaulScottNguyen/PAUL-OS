@@ -1,2 +1,6 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Force LF for all tracked files
+* text=auto eol=lf
+
+# Explicitly guarantee shell scripts and config files stay LF
+*.sh text eol=lf
+config/** text eol=lf

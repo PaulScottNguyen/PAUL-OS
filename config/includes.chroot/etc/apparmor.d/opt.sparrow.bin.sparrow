@@ -1,0 +1,26 @@
+#include <tunables/global>
+
+/opt/sparrow/bin/Sparrow flags=(enforce) {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/X>
+
+  # 1. Allow executing its own bundled Java runtime and reading its files
+  /opt/sparrow/** rix,
+  owner /tmp/** rw,
+  
+  # 2. Restrict to Webcam Access only
+  /dev/video* rw,
+  
+  # 3. Restrict Home directory to Sparrow's own configuration
+  owner @{HOME}/.sparrow/** rw,
+  owner @{HOME}/.sparrow/ r,
+  
+  # 4. Explicitly deny all network access (Defense in Depth)
+  deny network,
+  
+  # 5. Explicitly deny execution of external system shells
+  deny /bin/** x,
+  deny /usr/bin/** x,
+}

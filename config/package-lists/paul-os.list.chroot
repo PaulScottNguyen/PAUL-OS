@@ -8,3 +8,6 @@ libxext6
 libxrender1
 libxtst6
 libxi6
+apparmor
+apparmor-utils
+xterm
