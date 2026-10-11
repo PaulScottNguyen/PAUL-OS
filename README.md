@@ -2,7 +2,7 @@
 
 ![License: GNU General Public License version 3](https://img.shields.io/badge/License-GNU_GPL_v3.0-blue)
 ![Build: Debian Live](https://img.shields.io/badge/Build-Debian%20Live-red.svg)
-![Status: Beta v1.1](https://img.shields.io/badge/Status-Alpha_v1.0-orange.svg)
+![Status: Beta v1.1](https://img.shields.io/badge/Status-Beta_v1.1-orange.svg)
 
 **PAUL OS** is an amnesic, read-only, air-gapped Live CD environment engineered specifically for secure offline Bitcoin cold storage and PSBT (Partially Signed Bitcoin Transaction) signing. 
 
