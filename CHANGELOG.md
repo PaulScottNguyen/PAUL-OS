@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Staged Ian Coleman's standalone BIP39 tool alongside `surf`.
   - Added `dice-to-seed` Python entropy generation utility (99 D6 rolls to 256-bit SHA-256 hex).
   - Added `show-qr` ANSI UTF-8 terminal QR code generator.
-- **Peripheral & Hardware Support:** Added `matchbox-keyboard` for on-screen entry, `pcscd` for smart cards, `cups-daemon`/`cups-client`/`ipp-usb` for offline paper backups, and `pcmanfm`/`udisks2` for physical USB PSBT handoffs.
+- **Peripheral & Hardware Support:** Added `matchbox-keyboard` for on-screen entry, `pcscd` for smart cards, `cups-daemon`/`cups-client`/`ipp-usb` for offline paper backups, and `pcmanfm`/`udisks2`.
 - **Failsafe Permissions Hook:** Built `04-failsafe-permissions.chroot` to automatically assert execution permissions on all custom CLI tools and unpacked wallet binaries.
 - **Kernel Memory Poisoning:** Appended `init_on_alloc=1` alongside `init_on_free=1` in `config/binary` boot parameters to guarantee full RAM scrubbing upon allocation and deallocation.
 
