@@ -24,7 +24,7 @@ PAUL OS assumes the host hardware is potentially compromised and operates under 
 - **Offline Entropy Generation:**
   - **Ian Coleman BIP39 Tool:** Bundled HTML standalone tool executed in a locked-down WebKit browser.
   - **Dice-to-Seed (`dice-to-seed`):** A custom Python CLI utility that converts 99 rolls of a standard 6-sided die into cryptographically secure 256-bit hex entropy.
-- **Webcam/QR & File Utilities:** `zbar-tools` (camera scanning), `show-qr` (terminal-based UTF-8 QR generator for bridging text/PSBTs), `pcmanfm` (lightweight USB mounter), and local CUPS print daemons for paper backups.
+- **Webcam/QR & File Utilities:** `zbar-tools` (camera scanning), `show-qr` (terminal-based UTF-8 QR generator for bridging text/PSBTs), `pcmanfm`, and local CUPS print daemons for paper backups.
 
 ## System Requirements
 
