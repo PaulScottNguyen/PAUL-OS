@@ -1,0 +1,7 @@
+Package: plymouth
+Pin: release *
+Pin-Priority: -1
+
+Package: plymouth-label
+Pin: release *
+Pin-Priority: -1

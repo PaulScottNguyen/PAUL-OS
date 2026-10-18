@@ -1,0 +1,2 @@
+# Start the hardware/smart-card daemon in the background for wallets
+systemctl start pcscd &

@@ -1,0 +1,9 @@
+#!/bin/sh
+echo "-> Configuring Phase 3 Hardware Interfaces..."
+
+# Ensure the local printing and discovery services are enabled
+systemctl enable cups
+systemctl enable avahi-daemon
+systemctl enable ipp-usb
+
+echo "-> Hardware setup complete."

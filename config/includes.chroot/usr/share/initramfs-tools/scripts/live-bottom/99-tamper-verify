@@ -1,0 +1,31 @@
+#!/bin/sh
+PREREQ=""
+prereqs() { echo "$PREREQ"; }
+case "$1" in
+    prereqs) prereqs; exit 0 ;;
+esac
+
+# Force input/output directly to the physical monitor and keyboard
+exec < /dev/console > /dev/console 2>&1
+
+SQUASHFS="/run/live/medium/live/filesystem.squashfs"
+
+if [ -f "$SQUASHFS" ]; then
+    clear
+    echo "========================================================"
+    echo "          PAUL OS TAMPER-EVIDENT BOOT SEQUENCE          "
+    echo "========================================================"
+    echo "Calculating SHA-256 hash of the core filesystem..."
+    echo "(This will take a few seconds)"
+    echo ""
+    
+    # BusyBox provides a native sha256sum applet in the bootloader
+    HASH=$(sha256sum "$SQUASHFS" | awk '{print $1}')
+    
+    echo "FILESYSTEM SHA-256 HASH:"
+    echo "$HASH"
+    echo "========================================================"
+    echo "Verify this matches your known safe master hash."
+    echo "Press ENTER to acknowledge and continue booting PAUL OS..."
+    read -r dummy
+fi

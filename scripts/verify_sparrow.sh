@@ -1,30 +1,32 @@
 #!/bin/bash
 set -e
-
-SPARROW_VER="2.5.5"
-FILE_NAME="sparrowwallet-${SPARROW_VER}-x86_64.tar.gz"
-DEST_DIR="config/includes.chroot/opt"
-
-mkdir -p "$DEST_DIR"
-cd "$DEST_DIR"
-
-echo "-> Downloading Sparrow Wallet v$SPARROW_VER..."
-wget -q -O "${FILE_NAME}" "https://github.com/sparrowwallet/sparrow/releases/download/${SPARROW_VER}/${FILE_NAME}"
-wget -q -O manifest.txt "https://github.com/sparrowwallet/sparrow/releases/download/${SPARROW_VER}/sparrow-${SPARROW_VER}-manifest.txt"
-wget -q -O manifest.txt.asc "https://github.com/sparrowwallet/sparrow/releases/download/${SPARROW_VER}/sparrow-${SPARROW_VER}-manifest.txt.asc"
+echo "[*] Fetching Sparrow Wallet v2.5.5..."
+wget --show-progress https://github.com/sparrowwallet/sparrow/releases/download/2.5.5/sparrowwallet-2.5.5-x86_64.tar.gz
+wget --show-progress https://github.com/sparrowwallet/sparrow/releases/download/2.5.5/sparrow-2.5.5-manifest.txt
+wget --show-progress https://github.com/sparrowwallet/sparrow/releases/download/2.5.5/sparrow-2.5.5-manifest.txt.asc
 
 echo "-> Importing Craig Raw's PGP Key..."
-curl -sS https://keybase.io/craigraw/pgp_keys.asc | gpg --import
+curl -s https://keybase.io/craigraw/pgp_keys.asc | gpg --import
 
-echo "-> Verifying PGP Signature..."
-gpg --verify manifest.txt.asc manifest.txt
+echo "-> Verifying PGP Signature on Manifest..."
+gpg --verify sparrow-2.5.5-manifest.txt.asc sparrow-2.5.5-manifest.txt
 
-echo "-> Verifying Checksum..."
-sha256sum --check --ignore-missing manifest.txt
+echo "-> Verifying Archive Checksum..."
+sha256sum --check sparrow-2.5.5-manifest.txt --ignore-missing
 
 echo "-> Unpacking..."
-tar -xzf "${FILE_NAME}"
-mv Sparrow sparrow
-rm "${FILE_NAME}" manifest.txt manifest.txt.asc
+tar -xzf sparrowwallet-2.5.5-x86_64.tar.gz
+mkdir -p config/includes.chroot/opt
 
-echo "-> Sparrow Wallet successfully staged for OS build."
+# Wipe any leftover folder from a previous aborted build
+rm -rf config/includes.chroot/opt/sparrow
+mv Sparrow config/includes.chroot/opt/sparrow
+
+# Inject Hardware Wallet permissions into the core OS
+echo "-> Staging Hardware Wallet udev rules..."
+mkdir -p config/includes.chroot/etc/udev/rules.d
+cp config/includes.chroot/opt/sparrow/lib/runtime/conf/udev/*.rules config/includes.chroot/etc/udev/rules.d/
+
+# Forceful cleanup
+rm -f sparrowwallet-2.5.5-x86_64.tar.gz
+rm -f sparrow-2.5.5-manifest.txt*

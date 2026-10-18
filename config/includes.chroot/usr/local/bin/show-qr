@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+    echo "Usage: show-qr '<text or PSBT string>'"
+    exit 1
+fi
+clear
+echo "Press Ctrl + Shift + '+' to enlarge the QR code for your camera."
+echo "Press Ctrl + '-' to shrink."
+echo ""
+qrencode -t ANSIUTF8 "$1"

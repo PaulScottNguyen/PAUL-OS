@@ -2,7 +2,7 @@
 
 ![License: GNU General Public License version 3](https://img.shields.io/badge/License-GNU_GPL_v3.0-blue)
 ![Build: Debian Live](https://img.shields.io/badge/Build-Debian%20Live-red.svg)
-![Status: Beta v1.1](https://img.shields.io/badge/Status-Beta_v1.1-orange.svg)
+![Status: Release v1.0](https://img.shields.io/badge/Status-Release_v1.0-green.svg)
 
 **PAUL OS** is an amnesic, read-only, air-gapped Live CD environment engineered specifically for secure offline Bitcoin cold storage and PSBT (Partially Signed Bitcoin Transaction) signing. 
 
@@ -12,16 +12,19 @@ By aggressively stripping out networking and storage drivers at the kernel level
 
 PAUL OS assumes the host hardware is potentially compromised and operates under a zero-trust architecture.
 
-* **Air-Gap Enforcement:** All network drivers (Ethernet, Wi-Fi, Bluetooth) are blacklisted via `modprobe`. The kernel is physically incapable of loading networking modules.
-* **Storage Isolation:** Internal SATA, IDE, and NVMe block devices are ignored via strict `udev` rules. The OS cannot read or write to internal host drives.
-* **Kernel-Level RAM Amnesia:** Instead of relying on user-space scripts that risk Out-of-Memory (OOM) kernel panics, PAUL OS passes `init_on_free=1` and `slab_nomerge` directly to the bootloader. The Linux kernel natively and instantly overwrites memory pages with zeros the exact microsecond they are freed, neutralizing Cold Boot Attacks without interrupting graceful system shutdowns.
-* **PSBT Transport:** Designed for USB-free environments. Transaction data is passed entirely via QR code using the bundled UVC webcam drivers and Sparrow Wallet's optical capabilities.
+- **Physical Air-Gap Enforcement:** Software blacklists (like `modprobe`) are insufficient. PAUL OS utilizes a compiler-level hook (`99-physical-shrink.chroot`) to surgically delete all wired and wireless kernel network modules (`mac80211`, `/drivers/net`) and firmware from the root filesystem. The OS is physically incapable of transmitting or receiving network packets.
+- **Tamper-Evident Boot Sequence:** To defend against "Evil Maid" ISO tampering, the `99-tamper-verify` initramfs script pauses the bootloader to calculate and display a live SHA-256 hash of the core SquashFS filesystem. You can verify this hash against your known-safe master compilation before the decryption/desktop environment is permitted to load.
+- **Amnesic Root Execution:** Standard display managers and user accounts have been stripped to eliminate race conditions and reduce the attack surface. The system utilizes native `systemd` TTY overrides to boot directly into a locked-down `root` Openbox X11 session, ensuring full hardware control while guaranteeing total amnesia upon power loss.
+- **Kernel-Level RAM Amnesia:** Instead of relying on user-space scripts that risk Out-of-Memory (OOM) kernel panics, PAUL OS passes `init_on_free=1` and `init_on_alloc=1` directly to the bootloader. The Linux kernel natively and instantly overwrites memory pages with zeros the exact microsecond they are freed or allocated, neutralizing Cold Boot Attacks without interrupting graceful system shutdowns.
 
 ## Bundled Software
 
-* **Base System:** Debian 13 (Trixie) minimal build with `openbox`.
-* **Bitcoin Coordinator:** [Sparrow Wallet](https://sparrowwallet.com/) (v2.5.5)
-* **Webcam/QR Utilities:** `zbar-tools`, `guvcview`
+- **Base System:** Debian 13 (Trixie/Testing) minimal build with `openbox`.
+- **Bitcoin Coordinators:** [Sparrow Wallet](https://sparrowwallet.com/) (v2.5.5) & [Electrum Wallet](https://electrum.org/) (v4.8.2).
+- **Offline Entropy Generation:**
+  - **Ian Coleman BIP39 Tool:** Bundled HTML standalone tool executed in a locked-down WebKit browser.
+  - **Dice-to-Seed (`dice-to-seed`):** A custom Python CLI utility that converts 99 rolls of a standard 6-sided die into cryptographically secure 256-bit hex entropy.
+- **Webcam/QR & File Utilities:** `zbar-tools` (camera scanning), `show-qr` (terminal-based UTF-8 QR generator for bridging text/PSBTs), `pcmanfm` (lightweight USB mounter), and local CUPS print daemons for paper backups.
 
 ## System Requirements
 
@@ -76,6 +79,11 @@ Drag and drop paul-os-amd64.hybrid.iso to your Windows Desktop and burn it to a 
 
 #### Acknowledgements & Credits
 - Craig Raw & Sparrow Wallet Contributors: For developing Sparrow Wallet, the premier Bitcoin desktop coordinator.
+
+- ThomasV & SpesMilo: For Electrum, the battle-tested lightweight Bitcoin client.
+
+- Ian Coleman: For the BIP39 Standalone Tool, an invaluable resource for offline key derivation.
+
 - The Debian Project: For maintaining the live-build toolchain that makes reproducible amnesic operating systems possible.
 
 #### Disclaimers & Licensing

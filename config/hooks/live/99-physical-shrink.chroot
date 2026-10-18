@@ -1,0 +1,35 @@
+#!/bin/sh
+echo "-> Shrinking filesystem physically (Bypassing APT)..."
+
+# 1. Nuke heavy hardware firmware (Saves ~400MB)
+rm -rf /usr/lib/firmware/amdgpu
+rm -rf /usr/lib/firmware/radeon
+rm -rf /usr/lib/firmware/nvidia
+rm -rf /usr/lib/firmware/iwlwifi*
+rm -rf /usr/lib/firmware/ath*
+rm -rf /usr/lib/firmware/mrvl
+
+# 2. Amputate all Kernel Networking Drivers (Wired & Wireless)
+echo "-> Severing kernel network stack..."
+rm -rf /lib/modules/*/kernel/drivers/net
+rm -rf /lib/modules/*/kernel/net/mac80211
+rm -rf /lib/modules/*/kernel/net/wireless
+
+# 3. Rebuild the boot RAM disk so drivers are gone from the boot sequence
+update-initramfs -u
+
+# 4. Nuke documentation and man pages
+rm -rf /usr/share/doc/*
+rm -rf /usr/share/man/*
+rm -rf /usr/share/info/*
+
+# 5. Nuke unused locales
+find /usr/share/locale -mindepth 1 -maxdepth 1 ! -name 'en_US' ! -name 'en' ! -name 'locale.alias' -exec rm -rf {} +
+
+# 6. Wipe the APT cache
+apt-get clean -y
+rm -rf /var/lib/apt/lists/*
+rm -rf /var/cache/apt/*.bin
+
+echo "-> Physical shrink & Network Amputation complete."
+

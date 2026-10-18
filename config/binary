@@ -7,10 +7,10 @@ LB_IMAGE_TYPE="iso-hybrid"
 LB_BINARY_FILESYSTEM="fat32"
 
 # Set apt/aptitude generic indices
-LB_APT_INDICES="true"
+LB_APT_INDICES="false"
 
 # Set boot parameters
-LB_BOOTAPPEND_LIVE="boot=live components hostname=paul-os username=paul init_on_free=1 slab_nomerge"
+LB_BOOTAPPEND_LIVE="boot=live components quiet init_on_free=1 init_on_alloc=1"
 
 # Set boot parameters
 LB_BOOTAPPEND_INSTALL=""
@@ -117,5 +117,3 @@ LB_SWAP_FILE_SIZE="512"
 
 # Enable/disable UEFI secure boot support
 LB_UEFI_SECURE_BOOT="auto"
-
-LB_BOOTAPPEND_LIVE="boot=live components hostname=paul-os username=paul init_on_free=1 slab_nomerge apparmor=1 security=apparmor"

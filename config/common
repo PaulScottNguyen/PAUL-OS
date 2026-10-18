@@ -57,10 +57,8 @@ LB_SYSTEM="live"
 # Set base name of the image
 LB_IMAGE_NAME="paul-os"
 
-LB_REPRODUCIBLE="true"
-
 # Set options to use with apt
-APT_OPTIONS="--yes -o Acquire::Retries=5"
+APT_OPTIONS="--no-install-recommends"
 
 # Set options to use with aptitude
 APTITUDE_OPTIONS="--assume-yes -o Acquire::Retries=5"

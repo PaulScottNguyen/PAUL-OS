@@ -1,0 +1,7 @@
+#!/bin/sh
+echo "-> Disabling Openbox virtual desktops..."
+
+# Change the default 4 desktops to exactly 1
+sed -i 's/<number>4<\/number>/<number>1<\/number>/g' /etc/xdg/openbox/rc.xml
+
+echo "-> Openbox workspace lockdown complete."

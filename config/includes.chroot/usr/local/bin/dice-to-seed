@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+import hashlib
+import sys
+
+print("========================================================")
+print("             PAUL OS - DICE TO SEED TOOL                ")
+print("========================================================")
+print("Roll a standard 6-sided die exactly 99 times.")
+print("Type the results as a single continuous string (e.g., 123456123...).")
+print("========================================================\n")
+
+try:
+    rolls = input("Enter your 99 rolls: ").strip()
+except KeyboardInterrupt:
+    print("\nExiting.")
+    sys.exit(0)
+
+if len(rolls) != 99:
+    print(f"\n[ERROR] You entered {len(rolls)} rolls. Exactly 99 are required.")
+    sys.exit(1)
+
+for char in rolls:
+    if char not in '123456':
+        print("\n[ERROR] Invalid character detected. Only numbers 1 through 6 are allowed.")
+        sys.exit(1)
+
+# Hash the string using SHA-256 (Coldcard standard protocol)
+entropy_hex = hashlib.sha256(rolls.encode('utf-8')).hexdigest()
+
+print("\n========================================================")
+print("SUCCESS. Your 256-bit Entropy (Hex) is:")
+print(f"\n{entropy_hex}\n")
+print("HOW TO USE THIS IN SPARROW WALLET:")
+print("1. Open Sparrow -> File -> New Wallet")
+print("2. Keystores -> New Imported Software Wallet")
+print("3. Select 'Mnemonic Words (BIP39)' -> 24 Words")
+print("4. Click 'Use Custom Entropy' -> Select 'Hex'")
+print("5. Paste the Hex string above to generate your seed.")
+print("========================================================")

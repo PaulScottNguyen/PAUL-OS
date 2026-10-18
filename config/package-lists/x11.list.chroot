@@ -1,0 +1,6 @@
+xserver-xorg
+xserver-xorg-video-all
+xinit
+xserver-xorg-input-all
+dbus-x11
+fonts-dejavu-core

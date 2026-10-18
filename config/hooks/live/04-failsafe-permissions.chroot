@@ -1,0 +1,11 @@
+#!/bin/sh
+echo "[*] Forcing execution permissions on critical tools..."
+chmod +x /usr/local/bin/dice-to-seed
+
+# Ensure any AppImages in /opt/ are executable
+if [ -d /opt/sparrow/bin ]; then
+    chmod +x /opt/sparrow/bin/Sparrow
+fi
+if [ -f /opt/electrum/AppRun ]; then
+    chmod +x /opt/electrum/AppRun
+fi

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+  <menu id="root-menu" label="Openbox 3">
+    <item label="Virtual Keyboard">
+      <action name="Execute">
+        <command>matchbox-keyboard</command>
+      </action>
+    </item>
+    <item label="File Manager">
+      <action name="Execute">
+        <command>pcmanfm</command>
+      </action>
+    </item>
+    <item label="Terminal (lxterminal)">
+      <action name="Execute">
+        <command>lxterminal</command>
+      </action>
+    </item>
+    <separator />
+    <item label="Sparrow Wallet">
+      <action name="Execute">
+        <command>/opt/sparrow/bin/Sparrow</command>
+      </action>
+    </item>
+    <item label="Electrum Wallet">
+      <action name="Execute">
+        <command>/opt/electrum/AppRun</command>
+      </action>
+    </item>
+    <item label="BIP39 Tool">
+      <action name="Execute">
+        <command>surf /opt/bip39/bip39-standalone.html</command>
+      </action>
+    </item>
+    <separator />
+    <item label="Restart Openbox">
+      <action name="Restart" />
+    </item>
+    <item label="Reboot">
+      <action name="Execute">
+        <command>reboot</command>
+      </action>
+    </item>
+    <item label="Power Off">
+      <action name="Execute">
+        <command>poweroff</command>
+      </action>
+    </item>
+  </menu>
+</openbox_menu>
